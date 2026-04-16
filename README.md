@@ -38,13 +38,49 @@ Or clone this repository into your workspace `skills/` directory directly:
 git clone https://github.com/DuruGY/duru-memory.git skills/duru-memory
 ```
 
-## Runtime Dependencies
-
-This skill now uses a dedicated `uv` environment.
+Recommended first-time setup order:
 
 ```bash
 cd skills/duru-memory
 uv sync
+cp config.example.yaml config.yaml
+ollama pull qwen3-embedding:0.6b
+ollama pull gemma4:e4b
+```
+
+## Prerequisites
+
+Before using this skill, make sure these are installed on your machine:
+
+- `uv` (for the skill's isolated Python environment)
+- `Ollama` (required for local embedding / tagging / compaction model calls)
+- Python 3.11+
+
+Notes:
+
+- `sqlite-vec` and `apsw` are Python dependencies managed by `uv`, so you do not need to install them separately if `uv sync` succeeds.
+- This skill stores its semantic index in local SQLite files under `memory/`.
+
+## Runtime Setup
+
+This skill uses a dedicated `uv` environment.
+
+```bash
+cd skills/duru-memory
+uv sync
+```
+
+Then prepare your local config:
+
+```bash
+cp config.example.yaml config.yaml
+```
+
+Then make sure the required Ollama models are available locally:
+
+```bash
+ollama pull qwen3-embedding:0.6b
+ollama pull gemma4:e4b
 ```
 
 Ollama models are configurable via `config.yaml`.
